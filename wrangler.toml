@@ -1,0 +1,85 @@
+# Cloudflare Workers configuration for TMA Scanner Proxy
+# Documentation: https://developers.cloudflare.com/workers/wrangler/configuration/
+
+name = "helloworld-proxy"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+
+# Account ID (get from: wrangler whoami)
+# Uncomment and fill in after running `wrangler login`
+# account_id = "your-account-id-here"
+
+# Workers Paid plan required for:
+# - More than 100,000 requests/day
+# - More than 10ms CPU time per request
+# - Custom domains
+# compatibility_flags = []
+
+# Environment variables (non-sensitive)
+[vars]
+ENVIRONMENT = "production"
+
+# NOTE: This is an OPEN PROXY without authentication
+# No secrets required! Anyone with the URL can use it.
+# Only use for personal projects or behind a firewall.
+
+# Development environment
+[env.development]
+name = "helloworld-proxy-dev"
+vars = { ENVIRONMENT = "development" }
+
+# Staging environment
+[env.staging]
+name = "helloworld-proxy-staging"
+vars = { ENVIRONMENT = "staging" }
+
+# Production environment
+[env.production]
+name = "helloworld-proxy"
+vars = { ENVIRONMENT = "production" }
+
+# KV Namespaces for rate limiting (optional)
+# Uncomment to enable rate limiting
+# Create namespace: wrangler kv:namespace create "RATE_LIMIT"
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "your-kv-namespace-id"
+
+# KV for development
+# [[env.development.kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "your-dev-kv-namespace-id"
+
+# Durable Objects (for advanced rate limiting - optional)
+# [[durable_objects.bindings]]
+# name = "RATE_LIMITER"
+# class_name = "RateLimiter"
+# script_name = "helloworld-proxy"
+
+# Custom domains (requires Workers Paid plan)
+# [env.production.routes]
+# pattern = "proxy.yourdomain.com/*"
+# zone_name = "yourdomain.com"
+
+# Triggers (for scheduled tasks - optional)
+# [triggers]
+# crons = ["0 0 * * *"]  # Daily at midnight UTC
+
+# Tail consumers (for logging - optional)
+# [[tail_consumers]]
+# service = "my-log-consumer"
+
+# Analytics Engine (for advanced analytics - optional)
+# [[analytics_engine_datasets]]
+# binding = "ANALYTICS"
+
+# Development configuration
+[dev]
+ip = "127.0.0.1"
+port = 8787
+local_protocol = "http"
+
+# Observability
+[observability]
+enabled = true
+head_sampling_rate = 1.0  # Sample 100% of requests (reduce in production)

@@ -1,0 +1,40 @@
+{
+  "name": "helloworld-proxy",
+  "version": "1.0.0",
+  "description": "Cloudflare Worker HTTP/HTTPS proxy for TMA Scanner Playwright browser automation",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:staging": "wrangler deploy --env staging",
+    "deploy:production": "wrangler deploy --env production",
+    "tail": "wrangler tail",
+    "tail:staging": "wrangler tail --env staging",
+    "tail:production": "wrangler tail --env production",
+    "build": "echo 'TypeScript compilation handled by Wrangler'",
+    "test": "node scripts/test-proxy.js",
+    "kv:create": "wrangler kv:namespace create RATE_LIMIT",
+    "kv:create:dev": "wrangler kv:namespace create RATE_LIMIT --env development",
+    "login": "wrangler login",
+    "whoami": "wrangler whoami",
+    "cf-typings": "wrangler types"
+  },
+  "keywords": [
+    "cloudflare",
+    "workers",
+    "proxy",
+    "playwright",
+    "http-proxy",
+    "ip-protection"
+  ],
+  "author": "TMA Scanner Team",
+  "license": "MIT",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240529.0",
+    "typescript": "^5.4.5",
+    "wrangler": "^3.57.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
